@@ -69,6 +69,7 @@ body {
 .btn-signup:hover {
   background-color: #7f50cd;
 }
+
 .search {
   width: auto;
   display: flex;
@@ -87,6 +88,14 @@ body {
   border: 1px solid #ccc;
   outline: none;
   justify-content: center;
+}
+
+.trending_header {
+  color: #a78bfc;
+  font-weight: bold;
+  font-size: 38px;
+  padding-top: 30px;
+  padding-left: 30px;
 }
 
 .placeholder-text {
