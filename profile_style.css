@@ -64,3 +64,10 @@ body {
 .btn-signup:hover {
   background-color: #7f50cd;
 }
+
+#content {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 20px;
+  padding: 30px;
+}
