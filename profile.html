@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<!--- PROFILE UNDER CONSTRUCTION --->
 <html lang="en">
   <head>
     <meta charset="UTF-8">
@@ -7,11 +8,50 @@
     <title>Profile</title>
     <link rel="stylesheet" href="./profile_style.css">
     <link rel="icon" href="./favicon.ico" type="image/x-icon">
+<!--- Site Header --->
+    <div class="user-info">
+      <div class="logo"></div>
+      <span class="site-name">Digital Shelf</span>
+    </div>
+    <nav class="auth-buttons">
+      <button class="btn btn-login">Log In</button>
+      <button class="btn btn-signup">Sign Up</button>
+    </nav>
   </head>
+<!--- Main Profile card Starts Here --->
   <body>
     <main>
-        <p>Placeholder LOL</p>  
+        <div id="profile-card">
+            <div id="avatar"></div>
+            <h1>Hello, User</h1>
+            <p>myemail@csu.fullerton.edu</p>
+            <p>DOB:</p>
+            <p>Active Since:</p>
+            <p>Movies Completed:</p>
+            <p>Friends Made:</p>
+            <p>Movies Dropped:</p>
+        </div> 
+        <div id="my-stuff">
+            <h3>My Stuff</h3>
+            <select name="sort" id="sort">
+                <option value="">Sort By</option>
+                <option value="release_date.asc">Release Date (Asc)</option>
+                <option value="release_date.desc">Release Date (Desc)</option>
+                <option value="vote_average.asc">Rating (Asc)</option>
+                <option value="vote_average.desc">Rating (Desc)</option>
+            </select>
+        </div>
+        <div id="content"></div>
+        <footer>
+            <nav aria-label="Page nav">
+            <ul class="pagination">
+                <li><a href="#" id="prevButton">Previous</a></li>
+                <li><span id="pageNumbers">Page 1 of ?</span></li>
+                <li><a href="#" id="nextButton">Next</a></li>
+            </ul>
+            </nav>
+        </footer>
     </main>
-    <script src="index.js"></script>
+    <script src="script.js"></script>
   </body>
 </html>
