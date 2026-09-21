@@ -104,3 +104,14 @@ body {
   margin-top: 40px;
   padding: 0 20px;
 }
+
+.movie-box {
+  background-color: #ffffff;
+  width: 200px;
+  border-radius: 8px;
+  overflow: hidden;
+  text-align: center;
+  padding-bottom: 40px;
+  padding-top: 13px;
+  box-shadow: 0 4px 10px #cfcfcf;
+}
