@@ -10,7 +10,7 @@ body {
   background-color: #4F4D4D;
 }
 
-.title {
+#title {
   color: #a78bfc;
   font-size: 60px;
   font-weight: bold;
@@ -62,7 +62,7 @@ body {
 
 .btn-login:hover,
 .btn-signup:hover {
-  background-color: #7f50cd;
+  background-color: #9c62fa;
 }
 
 #content {
@@ -70,4 +70,18 @@ body {
   grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
   gap: 20px;
   padding: 30px;
+}
+
+.profile-card {
+  background: #ffffff;
+  padding: 20px;
+  margin: 20px;
+  border-radius: 25px;
+}
+
+#avatar {
+  background: #dbd9d9;
+  width: 150px;
+  height: 150px;
+  border-radius: 15px;
 }
