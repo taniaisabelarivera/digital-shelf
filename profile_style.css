@@ -133,6 +133,49 @@ body {
   font-family: 'Fredoka', sans-serif;
 }
 
+.movie-box {
+  background-color: #ffffff;
+  border-radius: 10px;
+  overflow: hidden;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.movie-box:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+.movie-box img {
+  width: 90%;
+  aspect-ratio: 2 / 3;
+  object-fit: cover;
+  display: center;
+  border-radius: 10px;
+  margin-top: 10px;
+}
+
+.movie-title {
+  font-weight: bold;
+  font-size: 15px;
+  color: #4F4D4D;
+  padding: 10px 10px 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.movie-info {
+  font-size: 13px;
+  color: #888;
+  padding: 0 10px 4px;
+}
+
+.movie-info:last-child {
+  padding-bottom: 12px;
+}
+
 @media (max-width: 600px) {
   .profile-card {
     flex-direction: column;
