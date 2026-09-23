@@ -10,40 +10,51 @@
 </head>
 
 <body>
-  <!-- Header Section -->
-  <header class="site-header">
-    <!-- Welcome message-->
-    <div class="user-info">
-      <div class="avatar"></div>
-      <span class="welcome-text">Welcome, User</span>
+  <main>
+    <!-- Header Section -->
+    <header class="site-header">
+      <!-- Welcome message-->
+      <div class="user-info">
+        <div class="avatar"></div>
+        <span class="welcome-text">Welcome, User</span>
+      </div>
+
+      <!-- Login and Signup buttons -->
+      <nav class="auth-buttons">
+        <button class="btn btn-login">Log In</button>
+        <button class="btn btn-signup">Sign Up</button>
+      </nav>
+    </header>
+
+    <div>
+      <!-- Website Name -->
+      <header class="title">Digital Shelf</header>
     </div>
-
-    <!-- Login and Signup buttons -->
-    <nav class="auth-buttons">
-      <button class="btn btn-login">Log In</button>
-      <button class="btn btn-signup">Sign Up</button>
-    </nav>
-  </header>
-
-  <div>
-    <!-- Website Name -->
-    <header class="title">Digital Shelf</header>
-  </div>
 
   <!-- Search Bar-->
   <div class="search">
     <form action="/search" method="get" role="search">
-        <input type="search" id="query" name="q" placeholder="Search Something...">
+        <input type="search" id="query" name="q" placeholder="Search Seomthing...">
     </form>
   </div>
 
-  <!--This section is not yet done-->
-  <main>
-    <header class="trending_header">Trending:</header>
+    <!--This section is not yet done-->
+    <div class="trending-bar">
+      <header class="trending_header">Trending:</header>
+      <ul class="nav-buttons">
+        <li><a href="#" id="prevButton">&lt;</a></li>
+        <li><a href="#" id="nextButton">&gt;</a></li>
+      </ul>
+    </div>
+    
+    <div id ="movie-display">
+      
+    </div>
+
+  <footer>
+    <a href="/profile.html">Profile</a>
+  </footer>
+  <script type="module" src="mainpage.js"></script>
   </main>
-<footer>
-  <a href="profile.html">Profile</a>
-</footer>
-<script type="module" src="mainpage.js"></script>
 </body>
 </html>

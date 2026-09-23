@@ -90,12 +90,38 @@ body {
   justify-content: center;
 }
 
+.trending-bar {
+  display: flex;
+  align-items: center;      /* vertically centers them relative to each other */
+  justify-content: space-between; /* pushes header left, buttons right */
+  gap: 20px;
+}
+
 .trending_header {
   color: #a78bfc;
   font-weight: bold;
   font-size: 38px;
   padding-top: 30px;
   padding-left: 30px;
+}
+
+.nav-buttons {
+  display: flex;
+  gap: 20px;
+  list-style: none;
+  padding: 20px;
+  margin: 0;
+}
+
+.nav-buttons a {
+  text-decoration: none;
+  font-size: 20px;
+  font-weight: bold;
+  color: #a78bfc;
+  padding: 5px 15px;
+  border: 1px solid #ccc;
+  border-radius: 2px;
+  cursor: pointer;
 }
 
 .placeholder-text {
