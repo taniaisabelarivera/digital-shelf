@@ -1,4 +1,4 @@
-@import url('https://googleapis.com');
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap');
 * {
   margin: 0;
   padding: 0;
@@ -96,4 +96,52 @@ body {
   width: 150px;
   height: 150px;
   border-radius: 15px;
+}
+
+#sort {
+  padding: 10px 5px;
+  font-size: 15px;
+  font-family: 'Fredoka', sans-serif;
+  color: #4F4D4D;
+  background-color: #ffffff;
+  border: 3px solid #a78bfa;
+  border-radius: 10px;
+  cursor: pointer;
+  outline: none;
+  padding-right: 40px;
+}
+
+#sort:hover {
+  border-color: #7f50cd;
+}
+
+#sort:focus {
+  border-color: #7f50cd;
+  box-shadow: 0 0 0 3px rgba(167, 139, 252, 0.3);
+}
+
+#my-stuff {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 30px;
+}
+
+#my-stuff, h3 {
+  color: #a78bfa;
+  font-size: 25px;
+  font-family: 'Fredoka', sans-serif;
+}
+
+@media (max-width: 600px) {
+  .profile-card {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  #avatar {
+    width: 100px;
+    height: 100px;
+  }
 }
