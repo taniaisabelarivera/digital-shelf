@@ -5,56 +5,56 @@
   <meta charset="UTF-8">
   <!-- To make the page width match the screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Digital Shelf</title>
   <link rel="stylesheet" href="mainpage_style.css">
+  <link rel="icon" href="./favicon.ico" type="image/x-icon">
 </head>
 
 <body>
   <main>
     <!-- Header Section -->
-    <header class="site-header">
-      <!-- Welcome message-->
-      <div class="user-info">
-        <div class="avatar"></div>
-        <span class="welcome-text">Welcome, User</span>
+      <header class="site-header">
+        <!-- Welcome message-->
+        <div class="user-info">
+          <div class="avatar"></div>
+          <span class="welcome-text">Welcome, User</span>
+        </div>
+
+        <!-- Login and Signup buttons -->
+        <nav class="auth-buttons">
+          <button class="btn btn-login">Log In</button>
+          <button class="btn btn-signup">Sign Up</button>
+        </nav>
+      </header>
+
+      <div>
+        <!-- Website Name -->
+        <h1 class="title">Digital Shelf</h1>
       </div>
 
-      <!-- Login and Signup buttons -->
-      <nav class="auth-buttons">
-        <button class="btn btn-login">Log In</button>
-        <button class="btn btn-signup">Sign Up</button>
-      </nav>
-    </header>
+      <!-- Search Bar-->
+      <div class="search">
+        <form action="/search" method="get" role="search">
+            <input type="search" id="query" name="q" placeholder="Search Seomthing...">
+        </form>
+      </div>
 
-    <div>
-      <!-- Website Name -->
-      <header class="title">Digital Shelf</header>
-    </div>
-
-    <!-- Search Bar-->
-    <div class="search">
-      <form action="/search" method="get" role="search">
-          <input type="search" id="query" name="q" placeholder="Search Seomthing...">
-      </form>
-    </div>
-
-    <!--This section is not yet done-->
-    <div class="trending-bar">
-      <header class="trending_header">Trending:</header>
-      <ul class="nav-buttons">
-        <li><a href="#" id="prevButton">&lt;</a></li>
-        <li><a href="#" id="nextButton">&gt;</a></li>
-      </ul>
-    </div>
-    
-    <div id ="movie-display">
+      <!--This section is not yet done-->
+      <div class="trending-bar">
+        <h2 class="trending_header">Trending:</h2>
+        <ul class="nav-buttons">
+          <li><a href="#" id="prevButton">&lt;</a></li>
+          <li><a href="#" id="nextButton">&gt;</a></li>
+        </ul>
+      </div>
       
-    </div>
+      <div id="content"></div>
 
-  <footer>
-    <a href="/profile.html">Profile</a>
-  </footer>
-  <script type="module" src="mainpage.js"></script>
+      <footer>
+        <a href="/profile.html">Profile</a>
+      </footer>
   </main>
+  <script type="module" src="mainpage.js"></script>
 </body>
 </html>
