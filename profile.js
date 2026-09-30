@@ -6,6 +6,7 @@ const pageNumber = document.getElementById("pageNumbers");
 const dropdown = document.getElementById("sort");
 const prevButton = document.getElementById("prevButton");
 const nextButton = document.getElementById("nextButton");
+const avatarButton = document.getElementById('avatar');
 let sort = "";
 let totalPages = 1;
 let pageNum = 1;
@@ -24,6 +25,12 @@ prevButton.addEventListener("click", (e) => {
     getMovies();
   }
 });
+
+
+avatarButton.addEventListener('click', () => {
+  location.href='/profile.html';
+});
+
 
 dropdown.addEventListener("change", () => {
   sort = dropdown.value;
