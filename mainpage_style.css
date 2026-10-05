@@ -33,10 +33,18 @@ body {
 }
 
 .avatar {
+  display: block;
   width: 40px;
   height: 40px;
   border-radius: 50%;
   background-color: #d1c4f7;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.avatar:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.5);
 }
 
 .welcome-text {
@@ -187,10 +195,4 @@ body {
 
 .movie-info:last-child {
   padding-bottom: 12px;
-}
-
-footer {
-  display: flex;
-  justify-content: center;
-  padding: 30px;
 }
