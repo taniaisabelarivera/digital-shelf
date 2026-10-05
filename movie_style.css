@@ -1,0 +1,48 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap');
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  font-family: 'Fredoka', sans-serif;
+  background-color: #4F4D4D;
+}
+
+.site-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 30px;
+  background-color: #a78bfa;
+}
+
+.user-info { display: flex; align-items: center; gap: 12px; }
+.logo { width: 40px; height: 40px; border-radius: 50%; background-color: #d1c4f7; }
+.site-name, .back-link { color: white; font-weight: bold; text-decoration: none; }
+
+.movie-card {
+  display: flex;
+  gap: 30px;
+  background: #ffffff;
+  margin: 30px;
+  padding: 30px;
+  border-radius: 25px;
+}
+
+.movie-poster {
+  width: 300px;
+  max-width: 100%;
+  aspect-ratio: 2 / 3;
+  object-fit: cover;
+  border-radius: 15px;
+  align-self: flex-start;
+}
+
+.movie-details h1 { color: #7f50cd; margin-bottom: 4px; }
+.movie-details h3 { color: #a78bfa; margin: 16px 0 6px; }
+.movie-details p { color: #444; margin-bottom: 8px; line-height: 1.5; }
+.tagline { font-style: italic; color: #888 !important; margin-bottom: 16px !important; }
+
+.message { color: white; text-align: center; padding: 60px 20px; font-size: 20px; }
+
+@media (max-width: 700px) {
+  .movie-card { flex-direction: column; align-items: center; }
+}
