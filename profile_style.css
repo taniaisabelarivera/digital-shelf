@@ -244,6 +244,12 @@ footer {
   color: #a78bfc;
 }
 
+.movie-box {
+  display: block;
+  text-decoration: none;
+  /* ...your existing styles... */
+}
+
 @media (max-width: 600px) {
   .profile-card {
     flex-direction: column;

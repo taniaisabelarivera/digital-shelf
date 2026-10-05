@@ -47,7 +47,8 @@ function displayMovies(movies) {
     } else {
       movieImg = "noPoster.png";
     }
-    const box = document.createElement("div");
+    const box = document.createElement("a");
+    box.href = `/movie.html?id=${movie.id}`;
     box.classList.add("movie-box");
     box.innerHTML = `
       <img src="${movieImg}">
