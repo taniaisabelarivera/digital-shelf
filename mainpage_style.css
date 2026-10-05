@@ -107,21 +107,28 @@ body {
 
 .nav-buttons {
   display: flex;
-  gap: 20px;
-  list-style: none;
-  padding: 20px;
-  margin: 0;
+  margin-right: 20px;
+  gap: 16px;
 }
 
-.nav-buttons a {
-  text-decoration: none;
+.nav-buttons button {
+  display: inline-block;
+  border: none;
+  color: white;
+  background-color: #a78bfc;
+  border-radius: 999px;
+  padding: 8px 20px;
+  cursor: pointer;
   font-size: 20px;
   font-weight: bold;
-  color: #a78bfc;
-  padding: 5px 15px;
-  border: 1px solid #ccc;
-  border-radius: 2px;
-  cursor: pointer;
+}
+
+#b1 {
+  padding: 10px 15px;
+}
+
+#b2 {
+  padding: 10px 15px;
 }
 
 .placeholder-text {
