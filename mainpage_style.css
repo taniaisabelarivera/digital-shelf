@@ -113,6 +113,21 @@ body {
   padding-left: 30px;
 }
 
+.new-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.new_header {
+  color: #a78bfc;
+  font-weight: bold;
+  font-size: 38px;
+  padding-top: 30px;
+  padding-left: 30px;
+}
+
 .nav-buttons {
   display: flex;
   margin-right: 20px;
@@ -131,6 +146,7 @@ body {
   font-weight: bold;
 }
 
+/* Navigation buttons for Trending Movies*/
 #b1 {
   padding: 10px 15px;
 }
@@ -138,6 +154,17 @@ body {
 #b2 {
   padding: 10px 15px;
 }
+/*----------------------------------*/
+
+/* Navigation buttons for New Movies*/
+#b3{
+  padding: 10px 15px;
+}
+
+#b4 {
+  padding: 10px 15px;
+}
+/*----------------------------------*/
 
 .placeholder-text {
   text-align: center;
@@ -148,6 +175,13 @@ body {
 
 /*  */
 #content {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 20px;
+  padding: 30px;
+}
+
+.movie-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
   gap: 20px;
