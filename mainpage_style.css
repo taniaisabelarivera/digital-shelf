@@ -65,6 +65,7 @@ body {
   font-size: 15px;
   font-weight: bold;
   cursor: pointer;
+  text-decoration: none; /* Remove the underline*/
 }
 
 .btn-login,
