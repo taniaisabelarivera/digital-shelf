@@ -17,7 +17,8 @@ function displayMovies(movies, container) {
     } else {
       movieImg = "noPoster.png";
     }
-    const box = document.createElement("div");
+    const box = document.createElement("a");          // was "div"
+    box.href = `/movie.html?id=${movie.id}`;          // new
     box.classList.add("movie-box");
     box.innerHTML = `
       <img src="${movieImg}">
@@ -79,6 +80,10 @@ document.getElementById('b2').addEventListener('click', () => showNext(trendingS
 
 document.getElementById('b3').addEventListener('click', () => showPrevious(newMoviesState));
 document.getElementById('b4').addEventListener('click', () => showNext(newMoviesState));
+
+document.querySelector(".btn-login").addEventListener("click", () => {
+  window.location.href = "/login.html";
+});
 
 getTrendingMovies('week').then(movies => {
   trendingState.movies = movies;
