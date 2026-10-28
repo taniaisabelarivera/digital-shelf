@@ -1,75 +1,60 @@
-<!-- For html5 -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <!-- To make the page width match the screen width -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Digital Shelf</title>
   <link rel="stylesheet" href="mainpage_style.css">
-  <link rel="icon" href="./favicon.ico" type="image/x-icon">
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
 </head>
 
 <body>
   <main>
-    <!-- Header Section -->
-      <header class="site-header">
-        <!-- Welcome message-->
-        <div class="user-info">
-          <div class="user-info">
-            <a href="/profile.html" class="avatar" aria-label="Go to your profile"></a>
-            <span class="welcome-text">Welcome, User</span>
-          </div>
-        </div>
-
-        <!-- Login and Signup buttons -->
-        <nav class="auth-buttons">
-          <!-- <button class="btn btn-login">Log In</button>
-          <button class="btn btn-signup">Sign Up</button> -->
-          <a href="login.html" class = "btn btn-login"> Log in </a>
-          <a href="signup.html" class = "btn btn-signup"> Sign up </a>
-        </nav>
-      </header>
-
-      <div>
-        <!-- Website Name -->
-        <h1 class="title">Digital Shelf</h1>
+    <header class="site-header">
+      <div class="user-info">
+        <a href="/profile.html" class="avatar" aria-label="Go to your profile"></a>
+        <span class="welcome-text">Welcome, User</span>
       </div>
+      <nav class="auth-buttons">
+        <a href="/login.html" class="btn btn-login">Log in</a>
+        <a href="/signup.html" class="btn btn-signup">Sign up</a>
+      </nav>
+    </header>
 
-      <!-- Search Bar-->
-      <div class="search">
-        <form action="/search" method="get" role="search">
-            <input type="search" id="query" name="q" placeholder="I'm curious about...">
-        </form>
+    <h1 class="title">Digital Shelf</h1>
+
+    <div class="search">
+      <!-- TODO: point at /search.html once the search page exists -->
+      <form action="/search.html" method="get" role="search">
+        <input type="search" id="query" name="q" placeholder="I'm curious about..." aria-label="Search movies">
+      </form>
+    </div>
+
+    <div class="trending-bar">
+      <h2 class="trending_header">Trending:</h2>
+      <div class="nav-buttons">
+        <button type="button" id="b1" aria-label="Previous trending movies">&lt;</button>
+        <button type="button" id="b2" aria-label="Next trending movies">&gt;</button>
       </div>
+    </div>
+    <div id="trending-content" class="movie-grid"></div>
 
-      <!--Trending Movies-->
-      <div class="trending-bar">
-        <h2 class="trending_header">Trending:</h2>
-        <div class="nav-buttons">
-          <button type="button" id="b1">&lt;</button>
-          <button type="button" id="b2">&gt;</button>
-        </div>
+    <div class="new-bar">
+      <h3 class="new_header">Latest:</h3>
+      <div class="nav-buttons">
+        <button type="button" id="b3" aria-label="Previous new movies">&lt;</button>
+        <button type="button" id="b4" aria-label="Next new movies">&gt;</button>
       </div>
-      <div id="trending-content" class="movie-grid"></div>
-
-      <!--New Movies-->
-      <div class="new-bar">
-        <h3 class="new_header">Latest:</h3>
-        <div class="nav-buttons">
-          <button type="button" id="b3">&lt;</button>
-          <button type="button" id="b4">&gt;</button>
-        </div>
-      </div>
-      <div id="new-content" class="movie-grid"></div>
-
+    </div>
+    <div id="new-content" class="movie-grid"></div>
   </main>
-  <script type="module" src="mainpage.js"></script>
 
   <footer>
-    <a href="profile">Profile</a>
+    <a href="/profile.html">Profile</a>
+    <a href="/communitypage.html">Community</a>
   </footer>
 
+  <script type="module" src="mainpage.js"></script>
 </body>
 </html>
