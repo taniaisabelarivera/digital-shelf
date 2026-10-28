@@ -1,3 +1,4 @@
+// Shared header logic: shows who is logged in and fills the profile card.
 const $ = (id) => document.getElementById(id);
 
 async function initAuth() {
@@ -5,7 +6,7 @@ async function initAuth() {
   try {
     const res = await fetch("/api/me");
     if (res.ok) me = await res.json();
-  } catch {}
+  } catch { /* server not running: stay in logged-out mode */ }
   if (!me) return;
 
   if ($("welcome")) $("welcome").textContent = `Welcome, ${me.username}`;
@@ -25,6 +26,7 @@ async function initAuth() {
     buttons.appendChild(out);
   }
 
+  // Profile page fields (ignored on other pages)
   const set = (id, text) => { if ($(id)) $(id).textContent = text; };
   set("profile-name", `Hello, ${me.username}`);
   set("profile-email", me.email);

@@ -2,28 +2,25 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Log In | Digital Shelf</title>
+  <title>Login | Digital Shelf</title>
   <link rel="stylesheet" href="login_style.css">
-  <link rel="icon" href="/favicon.ico" sizes="any">
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-  <link rel="manifest" href="/site.webmanifest">
 </head>
 <body>
   <div class="login-container">
     <h1>Digital Shelf</h1>
-    <h2>Log In</h2>
+    <h2>Welcome to the Digital Shelf</h2>
 
     <form id="login-form">
       <label for="email">Email</label>
-      <input type="email" id="email" placeholder="Enter your email" autocomplete="email" required>
+      <input type="email" id="email" placeholder="Enter your email" required>
 
       <label for="password">Password</label>
-      <input type="password" id="password" placeholder="Enter your password" autocomplete="current-password" required>
+      <input type="password" id="password" placeholder="Enter your password" required>
 
-      <button type="submit">Log In</button>
+      <button type="submit">Login</button>
+      <p id="login-error" role="alert" style="color:#c0392b;margin-top:12px;text-align:center"></p>
     </form>
 
     <p class="signup-text">

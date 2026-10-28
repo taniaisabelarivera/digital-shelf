@@ -1,7 +1,9 @@
 import { defineConfig } from "vite";
 import { resolve } from "node:path";
 
+// Multi-page build: every HTML page must be listed here or it won't ship.
 export default defineConfig({
+  // In dev, forward /api calls to the Express server (npm run server).
   server: { proxy: { "/api": "http://localhost:3000" } },
   build: {
     rollupOptions: {

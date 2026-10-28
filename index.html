@@ -6,11 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Digital Shelf</title>
   <link rel="stylesheet" href="mainpage_style.css">
-  <link rel="icon" href="/favicon.ico" sizes="any">
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-  <link rel="manifest" href="/site.webmanifest">
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
 </head>
 
 <body>
@@ -18,7 +14,7 @@
     <header class="site-header">
       <div class="user-info">
         <a href="/profile.html" class="avatar" aria-label="Go to your profile"></a>
-        <span class="welcome-text">Welcome, User</span>
+        <span class="welcome-text" id="welcome">Welcome, Guest</span>
       </div>
       <nav class="auth-buttons">
         <a href="/login.html" class="btn btn-login">Log in</a>
@@ -59,6 +55,7 @@
     <a href="/communitypage.html">Community</a>
   </footer>
 
+  <script type="module" src="auth.js"></script>
   <script type="module" src="mainpage.js"></script>
 </body>
 </html>

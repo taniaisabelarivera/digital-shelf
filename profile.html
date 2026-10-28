@@ -1,78 +1,70 @@
 <!DOCTYPE html>
-<!--- PROFILE UNDER CONSTRUCTION --->
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Profile</title>
-    <link rel="stylesheet" href="./profile_style.css">
-    <link rel="icon" href="/favicon.ico" sizes="any">
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-    <link rel="manifest" href="/site.webmanifest">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Profile | Digital Shelf</title>
+  <link rel="stylesheet" href="./profile_style.css">
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
 </head>
-<!--- Main Profile card Starts Here --->
-  <body>
-    <main>
-<!--- Site Header --->
-      <div class="site-header">
-        <div class="user-info">
-          <div class="logo"></div>
-          <a class="site-name" href="/index.html">Digital Shelf</a>
+<body>
+  <main>
+    <div class="site-header">
+      <div class="user-info">
+        <div class="logo"></div>
+        <a class="site-name" href="/index.html">Digital Shelf</a>
+      </div>
+      <nav class="auth-buttons">
+        <a href="/login.html" class="btn btn-login">Log In</a>
+        <a href="/signup.html" class="btn btn-signup">Sign Up</a>
+      </nav>
+    </div>
+
+    <div class="profile-card">
+      <div class="profile-top">
+        <div id="avatar"></div>
+        <div class="profile-info">
+          <h1 id="profile-name">Hello, Guest</h1>
+          <p id="profile-email">Log in to see your profile</p>
+          <p id="profile-dob">DOB:</p>
+          <p id="profile-since">Active Since:</p>
         </div>
-        <nav class="auth-buttons">
-          <button class="btn btn-login">Log In</button>
-          <button class="btn btn-signup">Sign Up</button>
-        </nav>
       </div>
-      <div class="profile-card">
-          <div class="profile-top">
-              <div id="avatar"></div>
-              <div class="profile-info">
-                  <h1>Hello, User</h1>
-                  <p>myemail@csu.fullerton.edu</p>
-                  <p>DOB:</p>
-                  <p>Active Since:</p>
-              </div>
-          </div>
-          <div class="profile-stats">
-              <div class="stat">
-                  <span class="stat-number">0</span>
-                  <span class="stat-label">Movies Completed</span>
-              </div>
-              <div class="stat">
-                  <span class="stat-number">0</span>
-                  <span class="stat-label">Friends Made</span>
-              </div>
-              <div class="stat">
-                  <span class="stat-number">0</span>
-                  <span class="stat-label">Movies Dropped</span>
-              </div>
-          </div>
+      <div class="profile-stats">
+        <div class="stat"><span class="stat-number" id="stat-completed">0</span><span class="stat-label">Movies Completed</span></div>
+        <div class="stat"><span class="stat-number" id="stat-friends">0</span><span class="stat-label">Friends Made</span></div>
+        <div class="stat"><span class="stat-number" id="stat-dropped">0</span><span class="stat-label">Movies Dropped</span></div>
       </div>
-      <div id="my-stuff">
-          <h3>My Stuff</h3>
-          <select name="sort" id="sort">
-              <option value="">Sort By</option>
-              <option value="release_date.asc">Release Date (Asc)</option>
-              <option value="release_date.desc">Release Date (Desc)</option>
-              <option value="vote_average.asc">Rating (Asc)</option>
-              <option value="vote_average.desc">Rating (Desc)</option>
-          </select>
-      </div>
-      <div id="content"></div>
-      <footer>
-          <nav aria-label="Page nav">
-          <ul class="pagination">
-              <li><a href="#" id="prevButton">Previous</a></li>
-              <li><span id="pageNumbers">Page 1 of ?</span></li>
-              <li><a href="#" id="nextButton">Next</a></li>
-          </ul>
-          </nav>
-      </footer>
-    </main>
-    <script type="module" src="profile.js"></script>
-  </body>
+    </div>
+
+    <div id="matches" hidden>
+      <h3>People Like You</h3>
+      <ul id="matches-list"></ul>
+    </div>
+
+    <div id="my-stuff">
+      <h3>My Stuff</h3>
+      <select name="sort" id="sort">
+        <option value="">Sort By</option>
+        <option value="release_date.asc">Release Date (Asc)</option>
+        <option value="release_date.desc">Release Date (Desc)</option>
+        <option value="title.asc">Title (A-Z)</option>
+        <option value="title.desc">Title (Z-A)</option>
+      </select>
+    </div>
+    <div id="content"></div>
+    <footer>
+      <nav aria-label="Page nav">
+        <ul class="pagination">
+          <li><a href="#" id="prevButton">Previous</a></li>
+          <li><span id="pageNumbers">Page 1 of 1</span></li>
+          <li><a href="#" id="nextButton">Next</a></li>
+        </ul>
+      </nav>
+    </footer>
+  </main>
+  <script type="module" src="auth.js"></script>
+  <script type="module" src="profile.js"></script>
+</body>
 </html>

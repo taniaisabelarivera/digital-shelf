@@ -1,23 +1,23 @@
 const form = document.getElementById("signup-form");
 const errorBox = document.getElementById("signup-error");
 
-form.addEventListener("submit", (event) => {
+form.addEventListener("submit", async (event) => {
   event.preventDefault();
   errorBox.textContent = "";
-
-  const username = document.getElementById("username").value.trim();
-  const email = document.getElementById("email").value.trim();
-  const password = document.getElementById("password").value;
-
-  if (username.length < 3) {
-    errorBox.textContent = "Username must be at least 3 characters.";
-    return;
+  try {
+    const res = await fetch("/api/signup", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        username: document.getElementById("username").value.trim(),
+        email: document.getElementById("email").value.trim(),
+        password: document.getElementById("password").value,
+      }),
+    });
+    const data = await res.json();
+    if (!res.ok) { errorBox.textContent = data.error; return; }
+    window.location.href = "/index.html"; // signup also logs you in
+  } catch {
+    errorBox.textContent = "Can't reach the server. Is `npm run server` running?";
   }
-  if (password.length < 8) {
-    errorBox.textContent = "Password must be at least 8 characters.";
-    return;
-  }
-
-  console.log("Signup stub:", { username, email }); // never log passwords
-  window.location.href = "/login.html";
 });

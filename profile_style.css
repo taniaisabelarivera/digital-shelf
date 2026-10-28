@@ -258,3 +258,30 @@ footer {
     height: 100px;
   }
 }
+
+.btn {
+  text-decoration: none;
+  display: inline-block;
+}
+ 
+#matches {
+  margin: 20px 30px 0;
+  padding: 20px;
+  background: #ffffff; 
+  border-radius: 25px;
+}
+
+#matches h3 {
+  color: #a78bfa;
+  font-size: 25px;
+  margin-bottom: 10px;
+}
+
+#matches ul {
+  list-style: none;
+}
+
+#matches li {
+  color: #444;
+  padding: 6px 0;
+}
