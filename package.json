@@ -3,18 +3,16 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
+  "engines": {
+    "node": ">=22.13"
+  },
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "db:init": "node db/init.js --seed"
   },
   "devDependencies": {
     "vite": "^8.3.0"
-  },
-  "dependencies": {
-    "sqlite3": "^6.0.1"
-  },
-  "allowScripts": {
-    "sqlite3@6.0.1": true
   }
 }

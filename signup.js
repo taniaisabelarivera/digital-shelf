@@ -1,6 +1,3 @@
-// Browser-side signup. The database (sqlite) lives on the server, never in the browser.
-// Until the backend exists, this validates the form and moves on to login.
-// TODO: replace the stub with  fetch("/api/signup", { method: "POST", ... })
 const form = document.getElementById("signup-form");
 const errorBox = document.getElementById("signup-error");
 
