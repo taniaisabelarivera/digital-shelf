@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Signup</title>
-  <link rel="stylesheet" href="singup_style.css">
+  <title>Sign Up | Digital Shelf</title>
+  <link rel="stylesheet" href="signup_style.css">
   <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -16,24 +15,25 @@
   <div class="signup-box">
     <h1>Sign Up</h1>
 
-    <form id="singup-form">
-
-      <label for="email">Username</label>
-      <input type="username" id="username" placeholder="Enter your username" required>
+    <form id="signup-form">
+      <label for="username">Username</label>
+      <input type="text" id="username" placeholder="Enter your username" autocomplete="username" minlength="3" required>
 
       <label for="email">Email</label>
-      <input type="email" id="email" placeholder="Enter your email" required>
+      <input type="email" id="email" placeholder="Enter your email" autocomplete="email" required>
 
       <label for="password">Password</label>
-      <input type="password" id="password" placeholder="Enter your password" required>
+      <input type="password" id="password" placeholder="Enter your password" autocomplete="new-password" minlength="8" required>
 
       <button type="submit">Create Account</button>
+      <p id="signup-error" role="alert"></p>
     </form>
 
     <p class="loginpage-link">
-      Already have a account? <a href="login">Log in</a>
+      Already have an account? <a href="/login.html">Log in</a>
     </p>
   </div>
 
+  <script type="module" src="signup.js"></script>
 </body>
 </html>
