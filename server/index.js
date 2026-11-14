@@ -37,8 +37,12 @@ app.post("/api/signup", (req, res) => {
       .run(username, email.trim(), hashPassword(password));
     startSession(res, Number(r.lastInsertRowid));
     res.status(201).json({ username });
-  } catch {
-    res.status(409).json({ error: "That username or email is already taken." });
+  } catch (err) {
+    console.error(err);
+    if (String(err.message).includes("UNIQUE")) {
+      return res.status(409).json({ error: "That username or email is already taken." });
+    }
+    res.status(500).json({ error: "Server error: " + err.message });
   }
 });
 

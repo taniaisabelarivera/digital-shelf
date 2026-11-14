@@ -1,13 +1,3 @@
-<<<<<<< HEAD
-import { defineConfig } from 'vite';
-
-export default defineConfig({
-  server: {
-    proxy: {
-      '^/signup$': 'http://localhost:3000'
-    }
-  }
-=======
 import { defineConfig } from "vite";
 import { resolve } from "node:path";
 
@@ -27,5 +17,4 @@ export default defineConfig({
       },
     },
   },
->>>>>>> 336fd055a1ad9f803aaedfce0c3d074cbfd73e3b
 });
