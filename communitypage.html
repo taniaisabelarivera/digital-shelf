@@ -26,7 +26,18 @@
     </header>
 
     <h1 class="title">Forum</h1>
-    <p class="placeholder-text">Coming soon.</p>
+
+    <form id="post-form">
+      <input id="post-title" placeholder="Title" maxlength="120" required>
+      <textarea id="post-body" placeholder="Start a discussion..." required></textarea>
+      <button type="submit" class="btn">Post</button>
+      <p id="post-error" role="alert"></p>
+    </form>
+
+    <div id="posts"></div>
   </main>
+
+  <script type="module" src="commpage.js"></script>
+  <script type="module" src="auth.js"></script>
 </body>
 </html>
