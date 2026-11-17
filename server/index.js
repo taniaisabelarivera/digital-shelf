@@ -3,7 +3,6 @@ import { DatabaseSync } from "node:sqlite";
 import { randomBytes } from "node:crypto";
 import { existsSync } from "node:fs";
 import { hashPassword, verifyPassword } from "./password.js";
-
 const PORT = process.env.PORT || 3000;
 const DB_PATH = new URL("../db/shelf.db", import.meta.url).pathname;
 const DIST = new URL("../dist", import.meta.url).pathname;
@@ -16,8 +15,12 @@ if (!existsSync(DB_PATH)) {
 const db = new DatabaseSync(DB_PATH);
 db.exec("PRAGMA foreign_keys = ON");
 
+if (!db.prepare("PRAGMA table_info(users)").all().some((c) => c.name === "bio")) {
+  db.exec("ALTER TABLE users ADD COLUMN bio TEXT");
+}
+
 const app = express();
-app.use(express.json({ limit: "100kb" }));
+app.use(express.json({ limit: "250kb" }));
 
 const SESSION_MS = 7 * 24 * 60 * 60 * 1000;
 const sessions = new Map(); // token -> { userId, expires }
@@ -135,7 +138,7 @@ app.post("/api/logout", (req, res) => {
 app.get("/api/me", requireAuth, (req, res) => {
   const me = db
     .prepare(
-      `SELECT u.username, u.email, u.dob, u.avatar_url, u.created_at,
+      `SELECT u.username, u.email, u.dob, u.bio, u.avatar_url, u.created_at,
               s.movies_completed, s.movies_dropped, s.friends_made
        FROM users u JOIN user_stats s ON s.user_id = u.id WHERE u.id = ?`
     )
@@ -144,18 +147,57 @@ app.get("/api/me", requireAuth, (req, res) => {
   res.json(me);
 });
 
-app.patch("/api/me", requireAuth, (req, res) => {
-  const { dob, avatar_url } = req.body ?? {};
-  if (dob != null && (!isStr(dob) || !/^\d{4}-\d{2}-\d{2}$/.test(dob) || Number.isNaN(Date.parse(dob))))
-    return res.status(400).json({ error: "DOB must be YYYY-MM-DD." });
-  if (avatar_url != null && (!isStr(avatar_url) || !/^https?:\/\//.test(avatar_url) || avatar_url.length > 500))
-    return res.status(400).json({ error: "Avatar must be an http(s) URL." });
+const AVATAR_RE = /^data:image\/(?:png|jpeg|webp);base64,[A-Za-z0-9+/=]+$/;
 
-  // Only touch fields that were actually sent.
-  if (dob !== undefined) db.prepare("UPDATE users SET dob = ? WHERE id = ?").run(dob, req.userId);
-  if (avatar_url !== undefined)
-    db.prepare("UPDATE users SET avatar_url = ? WHERE id = ?").run(avatar_url, req.userId);
-  res.json({ ok: true });
+function validDate(s) {
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(s)) return false;
+  const d = new Date(`${s}T00:00:00Z`);
+  return !Number.isNaN(d.getTime()) && d.toISOString().slice(0, 10) === s;
+}
+
+app.patch("/api/me", requireAuth, (req, res) => {
+  const b = req.body ?? {};
+  const sets = [];
+  const vals = [];
+  const bad = (msg) => res.status(400).json({ error: msg });
+
+  if (b.username !== undefined) {
+    if (!isStr(b.username) || !/^[\w.-]{3,30}$/.test(b.username))
+      return bad("Username must be 3-30 letters, numbers, . _ or -");
+    sets.push("username = ?");
+    vals.push(b.username);
+  }
+  if (b.bio !== undefined) {
+    if (b.bio !== null && (!isStr(b.bio) || b.bio.length > 300))
+      return bad("Bio can be at most 300 characters.");
+    sets.push("bio = ?");
+    vals.push(b.bio?.trim() || null);
+  }
+  if (b.dob !== undefined) {
+    const dob = b.dob || null;
+    const today = new Date().toISOString().slice(0, 10);
+    if (dob !== null && (!isStr(dob) || !validDate(dob) || dob < "1900-01-01" || dob > today))
+      return bad("Enter a valid date of birth.");
+    sets.push("dob = ?");
+    vals.push(dob);
+  }
+  if (b.avatar_url !== undefined) {
+    const a = b.avatar_url || null;
+    if (a !== null && (!isStr(a) || a.length > 150000 || !AVATAR_RE.test(a)))
+      return bad("Photo must be a PNG, JPEG or WebP image.");
+    sets.push("avatar_url = ?");
+    vals.push(a);
+  }
+  if (!sets.length) return bad("Nothing to update.");
+
+  try {
+    db.prepare(`UPDATE users SET ${sets.join(", ")} WHERE id = ?`).run(...vals, req.userId);
+    res.json({ ok: true });
+  } catch (err) {
+    if (String(err.message).includes("UNIQUE"))
+      return res.status(409).json({ error: "That username is already taken." });
+    throw err;
+  }
 });
 
 const STATUSES = ["planned", "watching", "completed", "dropped"];
@@ -250,7 +292,7 @@ app.get("/api/matches", requireAuth, (req, res) => {
 app.get("/api/users/:username", requireAuth, (req, res) => {
   const user = db
     .prepare(
-      `SELECT u.id, u.username, u.avatar_url, u.created_at,
+      `SELECT u.id, u.username, u.bio, u.avatar_url, u.created_at,
               s.movies_completed, s.movies_dropped, s.friends_made
        FROM users u JOIN user_stats s ON s.user_id = u.id WHERE u.username = ?`
     )
@@ -428,6 +470,7 @@ if (existsSync(DIST)) app.use(express.static(DIST));
 
 app.use((err, req, res, next) => {
   if (err.type === "entity.parse.failed") return res.status(400).json({ error: "Invalid JSON." });
+  if (err.type === "entity.too.large") return res.status(413).json({ error: "That request is too large." });
   console.error(err);
   res.status(500).json({ error: "Server error" });
 });

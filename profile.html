@@ -27,8 +27,10 @@
         <div class="profile-info">
           <h1 id="profile-name">Hello, Guest</h1>
           <p id="profile-email">Log in to see your profile</p>
+          <p id="profile-bio"></p>
           <p id="profile-dob">DOB:</p>
           <p id="profile-since">Active Since:</p>
+          <button type="button" id="edit-profile" class="btn btn-login" hidden>Edit Profile</button>
         </div>
       </div>
       <div class="profile-stats">
@@ -64,7 +66,41 @@
       </nav>
     </footer>
   </main>
+
+  <dialog id="edit-dialog" aria-labelledby="edit-title">
+    <form id="edit-form">
+      <h2 id="edit-title">Edit Profile</h2>
+
+      <div class="edit-avatar-row">
+        <div id="edit-avatar-preview" role="img" aria-label="Profile photo preview"></div>
+        <div class="edit-avatar-buttons">
+          <button type="button" id="avatar-choose" class="btn btn-login">Choose photo</button>
+          <button type="button" id="avatar-remove" class="btn btn-secondary">Remove photo</button>
+          <input type="file" id="avatar-file" accept="image/png,image/jpeg,image/webp" hidden>
+        </div>
+      </div>
+
+      <label for="edit-username">Username</label>
+      <input type="text" id="edit-username" minlength="3" maxlength="30" pattern="[\w.\-]{3,30}"
+             title="3-30 letters, numbers, . _ or -" autocomplete="username" required>
+
+      <label for="edit-dob">Date of birth</label>
+      <input type="date" id="edit-dob" min="1900-01-01">
+
+      <label for="edit-bio">Bio <span id="bio-count">0/300</span></label>
+      <textarea id="edit-bio" maxlength="300" placeholder="Tell people what you like to watch..."></textarea>
+
+      <p id="edit-error" role="alert"></p>
+
+      <div class="edit-actions">
+        <button type="button" id="edit-cancel" class="btn btn-secondary">Cancel</button>
+        <button type="submit" id="edit-save" class="btn btn-login">Save</button>
+      </div>
+    </form>
+  </dialog>
+
   <script type="module" src="auth.js"></script>
   <script type="module" src="profile.js"></script>
+  <script type="module" src="profile_edit.js"></script>
 </body>
 </html>

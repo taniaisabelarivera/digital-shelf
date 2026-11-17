@@ -1,5 +1,26 @@
-// Shared header logic: shows who is logged in and fills the profile card.
 const $ = (id) => document.getElementById(id);
+const set = (id, text) => { if ($(id)) $(id).textContent = text; };
+
+export function applyAvatar(url) {
+  document.querySelectorAll("a.avatar, #avatar").forEach((el) => {
+    el.style.backgroundImage = url ? `url(${JSON.stringify(url)})` : "";
+    el.style.backgroundSize = "cover";
+    el.style.backgroundPosition = "center";
+  });
+}
+
+export function renderMe(me) {
+  set("welcome", `Welcome, ${me.username}`);
+  set("profile-name", `Hello, ${me.username}`);
+  set("profile-email", me.email);
+  set("profile-bio", me.bio ?? "");
+  set("profile-dob", `DOB: ${me.dob ?? "N/A"}`);
+  set("profile-since", `Active Since: ${me.created_at.slice(0, 10)}`);
+  set("stat-completed", me.movies_completed);
+  set("stat-friends", me.friends_made);
+  set("stat-dropped", me.movies_dropped);
+  applyAvatar(me.avatar_url);
+}
 
 async function initAuth() {
   let me = null;
@@ -7,9 +28,7 @@ async function initAuth() {
     const res = await fetch("/api/me");
     if (res.ok) me = await res.json();
   } catch { /* server not running: stay in logged-out mode */ }
-  if (!me) return;
-
-  if ($("welcome")) $("welcome").textContent = `Welcome, ${me.username}`;
+  if (!me) return null;
 
   const buttons = document.querySelector(".auth-buttons");
   if (buttons) {
@@ -26,15 +45,8 @@ async function initAuth() {
     buttons.appendChild(out);
   }
 
-  // Profile page fields (ignored on other pages)
-  const set = (id, text) => { if ($(id)) $(id).textContent = text; };
-  set("profile-name", `Hello, ${me.username}`);
-  set("profile-email", me.email);
-  set("profile-dob", `DOB: ${me.dob ?? "N/A"}`);
-  set("profile-since", `Active Since: ${me.created_at.slice(0, 10)}`);
-  set("stat-completed", me.movies_completed);
-  set("stat-friends", me.friends_made);
-  set("stat-dropped", me.movies_dropped);
+  renderMe(me);
+  return me;
 }
 
-initAuth();
+export const mePromise = initAuth();
