@@ -1,3 +1,5 @@
+import { loadShelf as fetchShelfRows, getShelfRow, createShelfControls, esc } from "./shelf.js";
+
 const KEY = import.meta.env.VITE_TMDB_API_KEY;
 const IMG_URL = "https://image.tmdb.org/t/p/w500";
 const BASE = "https://api.themoviedb.org/3";
@@ -9,16 +11,9 @@ const dropdown = document.getElementById("sort");
 const prevButton = document.getElementById("prevButton");
 const nextButton = document.getElementById("nextButton");
 
-let items = [];   // the logged-in user's shelf
+let items = [];
 let sort = "";
 let pageNum = 1;
-
-// Escape text before putting it in innerHTML (protects against XSS).
-function esc(text) {
-  const el = document.createElement("div");
-  el.textContent = text ?? "";
-  return el.innerHTML;
-}
 
 function totalPages() {
   return Math.max(1, Math.ceil(items.length / PER_PAGE));
@@ -40,21 +35,30 @@ function render() {
   container.innerHTML = "";
   slice.forEach((m) => {
     const img = m.poster_path ? IMG_URL + m.poster_path : "/noPoster.png";
-    const box = document.createElement("a");
-    box.href = `/movie.html?id=${m.tmdb_id}`;
+    const box = document.createElement("div");
     box.classList.add("movie-box");
-    box.innerHTML = `
+
+    const link = document.createElement("a");
+    link.href = `/movie.html?id=${m.tmdb_id}`;
+    link.innerHTML = `
       <img src="${img}" alt="${esc(m.title)} poster">
       <div class="movie-title">${esc(m.title)}</div>
       <div class="movie-info">Release Date: ${esc(m.release_date) || "N/A"}</div>
-      <div class="movie-info">${esc(m.status)}${m.liked ? " · ♥ liked" : ""}</div>
+      <div class="movie-info">${esc(m.status)}${m.liked ? " · ♥ liked" : ""}${m.rating ? ` · ★ ${m.rating}/10` : ""}</div>
     `;
+
+    box.append(
+      link,
+      createShelfControls(
+        { id: m.tmdb_id, title: m.title, poster_path: m.poster_path, release_date: m.release_date },
+        { compact: true }
+      )
+    );
     container.appendChild(box);
   });
   pageNumber.innerText = `Page ${pageNum} of ${pages}`;
 }
 
-// Our database stores only the TMDB id (+ title), so fetch poster and date from TMDB.
 async function enrich(row) {
   if (row.poster_path && row.release_date) return row;
   try {
@@ -73,13 +77,12 @@ function showMessage(html) {
 
 async function loadShelf() {
   try {
-    const res = await fetch("/api/shelf");
-    if (res.status === 401) {
+    const shelf = await fetchShelfRows();
+    if (!shelf) {
       showMessage('Please <a href="/login.html" style="color:#d1c4f7">log in</a> to see your shelf.');
       return;
     }
-    if (!res.ok) throw new Error(res.status);
-    items = await Promise.all((await res.json()).map(enrich));
+    items = await Promise.all([...shelf.values()].map(enrich));
     if (items.length === 0) showMessage("Your shelf is empty.");
     else render();
     loadMatches();
@@ -102,6 +105,17 @@ async function loadMatches() {
     document.getElementById("matches").hidden = false;
   } catch { /* matches are optional */ }
 }
+
+document.addEventListener("shelf:change", (e) => {
+  const row = getShelfRow(e.detail);
+  items = row
+    ? items.map((i) =>
+        i.tmdb_id === e.detail ? { ...i, status: row.status, liked: row.liked, rating: row.rating } : i)
+    : items.filter((i) => i.tmdb_id !== e.detail);
+  if (items.length === 0) showMessage("Your shelf is empty.");
+  else render();
+  loadMatches();
+});
 
 nextButton.addEventListener("click", (e) => {
   e.preventDefault();
