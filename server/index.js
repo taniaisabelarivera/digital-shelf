@@ -90,4 +90,47 @@ app.get("/api/matches", requireAuth, (req, res) => {
      GROUP BY o.user_id ORDER BY similarity DESC LIMIT 10`).all({ me: req.userId }));
 });
 
+// ---------- Forum ----------
+// The below section is for getting and sending data from database
+app.get("/api/posts", (req, res) => {
+  const tmdb = req.query.tmdb_id ? Number(req.query.tmdb_id) : null;
+  const rows = tmdb
+    ? db.prepare(
+        `SELECT p.id, p.title, p.body, p.tmdb_id, p.created_at, u.username
+         FROM posts p JOIN users u ON u.id = p.user_id
+         WHERE p.tmdb_id = ? ORDER BY p.created_at DESC`).all(tmdb)
+    : db.prepare(
+        `SELECT p.id, p.title, p.body, p.tmdb_id, p.created_at, u.username
+         FROM posts p JOIN users u ON u.id = p.user_id
+         ORDER BY p.created_at DESC LIMIT 50`).all();
+  res.json(rows);
+});
+
+app.post("/api/posts", requireAuth, (req, res) => {
+  const { title = "", body = "", tmdb_id = null } = req.body ?? {};
+  if (!title.trim() || !body.trim()) return res.status(400).json({ error: "Title and body are required." });
+  const r = db.prepare("INSERT INTO posts (user_id, tmdb_id, title, body) VALUES (?, ?, ?, ?)")
+    .run(req.userId, Number.isInteger(tmdb_id) ? tmdb_id : null, title.trim(), body.trim());
+  res.status(201).json({ id: Number(r.lastInsertRowid) });
+});
+
+app.get("/api/posts/:id/comments", (req, res) => {
+  res.json(db.prepare(
+    `SELECT c.id, c.body, c.created_at, u.username
+     FROM comments c JOIN users u ON u.id = c.user_id
+     WHERE c.post_id = ? ORDER BY c.created_at ASC`).all(Number(req.params.id)));
+});
+
+app.post("/api/posts/:id/comments", requireAuth, (req, res) => {
+  const { body = "" } = req.body ?? {};
+  if (!body.trim() || body.length > 1000) return res.status(400).json({ error: "Invalid comment." });
+  try {
+    db.prepare("INSERT INTO comments (post_id, user_id, body) VALUES (?, ?, ?)")
+      .run(Number(req.params.id), req.userId, body.trim());
+    res.status(201).json({ ok: true });
+  } catch {
+    res.status(404).json({ error: "Post not found." });
+  }
+});
+
 app.listen(3000, () => console.log("API running on http://localhost:3000"));

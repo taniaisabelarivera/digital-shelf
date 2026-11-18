@@ -31,6 +31,9 @@ function renderMovie(movie) {
         <p><strong>Cast:</strong> ${cast}</p>
         <h3>Overview</h3>
         <p>${movie.overview || "No overview available."}</p>
+        <div class="movie-actions">
+          <a class="forum-btn" href="/communitypage.html?id=${movie.id}">Join the Forum</a>
+        </div>
       </div>
     </div>
   `;
