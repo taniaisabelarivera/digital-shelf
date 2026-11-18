@@ -62,3 +62,17 @@ body {
 @media (max-width: 700px) {
   .movie-card { flex-direction: column; align-items: center; }
 }
+
+.community-btn {
+  display: inline-block;
+  margin: 4px 0 12px;
+  padding: 8px 18px;
+  border-radius: 999px;
+  background-color: #7f50cd;
+  color: white;
+  font-weight: bold;
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.community-btn:hover { background-color: #6a3fb5; }

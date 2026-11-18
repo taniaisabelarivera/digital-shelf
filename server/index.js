@@ -390,8 +390,7 @@ app.delete("/api/friends/:username", requireAuth, (req, res) => {
 });
 
 app.get("/api/posts", (req, res) => {
-  const tmdb = req.query.tmdb_id !== undefined ? toInt(req.query.tmdb_id) : null;
-  const limit = Math.min(Math.max(toInt(req.query.limit, 50), 1), 100);
+  const tmdb = req.query.tmdb_id !== undefined ? toInt(req.query.tmdb_id, -1) : null;  const limit = Math.min(Math.max(toInt(req.query.limit, 50), 1), 100);
   const offset = Math.max(toInt(req.query.offset, 0), 0);
   res.json(
     db

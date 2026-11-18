@@ -26,6 +26,7 @@ function renderMovie(movie) {
         <h1>${movie.title}</h1>
         ${movie.tagline ? `<p class="tagline">${movie.tagline}</p>` : ""}
         <div id="shelf-slot"></div>
+        <a class="community-btn" href="/communitypage.html?id=${movie.id}">Join the discussion</a>
         <p><strong>Release Date:</strong> ${movie.release_date || "N/A"}</p>
         <p><strong>Runtime:</strong> ${movie.runtime ? movie.runtime + " min" : "N/A"}</p>
         <p><strong>Rating:</strong> ${movie.vote_average.toFixed(1)} (${movie.vote_count} votes)</p>
