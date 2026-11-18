@@ -1,3 +1,5 @@
+import { loadShelf, createShelfControls } from "./shelf.js";
+
 const KEY = import.meta.env.VITE_TMDB_API_KEY;
 const IMG_URL = "https://image.tmdb.org/t/p/w500";
 const BASE = "https://api.themoviedb.org/3";
@@ -23,6 +25,8 @@ function renderMovie(movie) {
       <div class="movie-details">
         <h1>${movie.title}</h1>
         ${movie.tagline ? `<p class="tagline">${movie.tagline}</p>` : ""}
+        <div id="shelf-slot"></div>
+        <a class="community-btn" href="/communitypage.html?id=${movie.id}">Join the discussion</a>
         <p><strong>Release Date:</strong> ${movie.release_date || "N/A"}</p>
         <p><strong>Runtime:</strong> ${movie.runtime ? movie.runtime + " min" : "N/A"}</p>
         <p><strong>Rating:</strong> ${movie.vote_average.toFixed(1)} (${movie.vote_count} votes)</p>
@@ -37,6 +41,15 @@ function renderMovie(movie) {
       </div>
     </div>
   `;
+
+  document.getElementById("shelf-slot").append(
+    createShelfControls({
+      id: movie.id,
+      title: movie.title,
+      poster_path: movie.poster_path,
+      release_date: movie.release_date,
+    })
+  );
 }
 
 async function getMovie() {
@@ -45,7 +58,10 @@ async function getMovie() {
     return;
   }
   try {
-    const res = await fetch(`${BASE}/movie/${id}?api_key=${KEY}&append_to_response=credits`);
+    const [res] = await Promise.all([
+      fetch(`${BASE}/movie/${id}?api_key=${KEY}&append_to_response=credits`),
+      loadShelf().catch(() => null),
+    ]);
     if (!res.ok) throw new Error(`Request failed: ${res.status}`);
     renderMovie(await res.json());
   } catch (err) {

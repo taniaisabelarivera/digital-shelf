@@ -7,6 +7,7 @@ CREATE TABLE IF NOT EXISTS users (
   email         TEXT NOT NULL UNIQUE COLLATE NOCASE,
   password_hash TEXT NOT NULL,                 -- bcrypt/argon2 hash, NEVER the password
   dob           TEXT,                          -- ISO date, optional
+  bio           TEXT,
   avatar_url    TEXT,
   created_at    TEXT NOT NULL DEFAULT (datetime('now'))   -- "Active Since"
 );

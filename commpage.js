@@ -53,7 +53,7 @@ function renderPost(p) {
 
   if (!tmdbId && p.tmdb_id) {
     const link = el("a", "View movie forum", "movie-link");
-    link.href = `/community.html?id=${p.tmdb_id}`;
+    link.href = `/communitypage.html?id=${p.tmdb_id}`;
     card.append(link);
   }
 

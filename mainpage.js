@@ -1,31 +1,32 @@
+import { loadShelf, createShelfControls, esc } from "./shelf.js";
+
 const KEY = import.meta.env.VITE_TMDB_API_KEY;
 const IMG_URL = "https://image.tmdb.org/t/p/w500";
 const BASE = "https://api.themoviedb.org/3";
-const container = document.getElementById("content");
 
 const trendingState = { movies: [], page: 0, containerId: 'trending-content' };
 const newMoviesState = { movies: [], page: 0, containerId: 'new-content' };
 
 const moviesPerPage = 6;
+const shelfReady = loadShelf().catch(() => null);
 
 function displayMovies(movies, container) {
   container.innerHTML = "";
   movies.forEach(movie => {
-    let movieImg;
-    if (movie.poster_path) {
-      movieImg = IMG_URL + movie.poster_path;
-    } else {
-      movieImg = "noPoster.png";
-    }
-    const box = document.createElement("a");          // was "div"
-    box.href = `/movie.html?id=${movie.id}`;          // new
+    const movieImg = movie.poster_path ? IMG_URL + movie.poster_path : "noPoster.png";
+    const box = document.createElement("div");
     box.classList.add("movie-box");
-    box.innerHTML = `
-      <img src="${movieImg}">
-      <div class="movie-title">${movie.title}</div>
-      <div class="movie-info">Release Date: ${movie.release_date}</div>
+
+    const link = document.createElement("a");
+    link.href = `/movie.html?id=${movie.id}`;
+    link.innerHTML = `
+      <img src="${movieImg}" alt="${esc(movie.title)} poster">
+      <div class="movie-title">${esc(movie.title)}</div>
+      <div class="movie-info">Release Date: ${esc(movie.release_date)}</div>
       <div class="movie-info">Rating: ${movie.vote_average.toFixed(1)}</div>
     `;
+
+    box.append(link, createShelfControls(movie, { compact: true }));
     container.appendChild(box);
   });
 }
@@ -50,7 +51,7 @@ async function getTrendingMovies(timeWindow = 'week') {
   }
 }
 
-async function getNewMovies(timeWindow = 'month') {
+async function getNewMovies() {
   const url = `${BASE}/movie/now_playing?api_key=${KEY}`;
   try {
     const response = await fetch(url);
@@ -85,12 +86,12 @@ document.querySelector(".btn-login").addEventListener("click", () => {
   window.location.href = "/login.html";
 });
 
-getTrendingMovies('week').then(movies => {
+Promise.all([getTrendingMovies('week'), shelfReady]).then(([movies]) => {
   trendingState.movies = movies;
   renderPage(trendingState);
 });
 
-getNewMovies().then(movies => {
+Promise.all([getNewMovies(), shelfReady]).then(([movies]) => {
   newMoviesState.movies = movies;
   renderPage(newMoviesState);
 });
